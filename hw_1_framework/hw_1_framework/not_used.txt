@@ -1,0 +1,53 @@
+//----------- убрать все, что идет дальше, куда-то в другое место
+
+		Context->RSSetState(rastState);
+
+		D3D11_VIEWPORT viewport = {};
+		viewport.Width = static_cast<float>(screenWidth);
+		viewport.Height = static_cast<float>(screenHeight);
+		viewport.TopLeftX = 0;
+		viewport.TopLeftY = 0;
+		viewport.MinDepth = 0;
+		viewport.MaxDepth = 1.0f;
+
+		Context->RSSetViewports(1, &viewport);
+
+		// -----------------------------------------------------------------
+		// stage 8
+
+		context->IASetInputLayout(layout);
+		context->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		context->IASetIndexBuffer(ib, DXGI_FORMAT_R32_UINT, 0);
+		context->IASetVertexBuffers(0, 1, &vb, strides, offsets);
+
+		// -----------------------------------------------------------------
+		// stage 9
+
+		Context->VSSetShader(vertexShader, nullptr, 0);
+		Context->PSSetShader(pixelShader, nullptr, 0);
+
+		// -----------------------------------------------------------------
+		// stage ???
+
+	
+
+		// -----------------------------------------------------------------
+		// stage 11
+
+		//context->OMSetRenderTargets(1, &rtv, nullptr);
+
+		//--------------------------------------------------------------------------------------
+		// stage 13
+
+		float color[] = { totalTime, 0.1f, 0.1f, 1.0f };
+		context->ClearRenderTargetView(rtv, color);
+
+		//--------------------------------------------------------------------------------------
+		// stage 14
+		context->DrawIndexed(6, 0, 0);
+
+		//context->OMSetRenderTargets(0, nullptr, nullptr);
+
+		//--------------------------------------------------------------------------------------
+		// stage 15
+		//swapChain->Present(1, /*DXGI_PRESENT_DO_NOT_WAIT*/ 0);
